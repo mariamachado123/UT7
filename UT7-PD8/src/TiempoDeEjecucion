@@ -1,0 +1,6 @@
+DFS: O(V + A) (V=vertices, A=aristas).
+
+Clasificación de aristas: O(A) (ya que se analiza cada arco una sola vez).
+
+Complejidad total: O(V + A).
+
