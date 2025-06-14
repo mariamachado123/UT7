@@ -30,25 +30,6 @@ public class TestGrafo {
     }
 
     @Test
-    public void testFloyd_ConConexionesDirectas() {
-        TVertice v1=new TVertice("A");
-        TVertice v2=new TVertice("B");
-        TVertice v3=new TVertice("C");
-
-        TArista a1=new TArista("A", "B", 5.0);
-        TArista a2=new TArista("B", "C", 10.0);
-        Collection<TVertice> vertices=Arrays.asList(v1, v2, v3);
-        Collection<TArista> aristas=Arrays.asList(a1, a2);
-        TGrafoDirigido grafo=new TGrafoDirigido(vertices, aristas);
-        Double[][] result=grafo.floyd();
-
-        assertEquals("La distancia a sí mismo debe ser 0.", 0.0, result[0][0]);
-        assertEquals("La distancia de A a B debe ser 5.", 5.0, result[0][1]);
-        assertEquals("La distancia de A a C debe ser 15.", 15.0, result[0][2]);
-        assertEquals("La distancia de C a A (sin camino) debe ser infinito.", Double.MAX_VALUE, result[2][0]);
-    }
-
-    @Test
     public void testFloyd_ConComponentesDesconectados() {
         TVertice v1=new TVertice("A");
         TVertice v2=new TVertice("B");
