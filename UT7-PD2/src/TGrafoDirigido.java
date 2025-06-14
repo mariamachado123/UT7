@@ -139,15 +139,15 @@ public class TGrafoDirigido implements IGrafoDirigido {
     @Override
     public Comparable centroDelGrafo() {
         Double excentricidadMinima=Double.MAX_VALUE;
-        TVertice verticeCentro = null;
-        for (TVertice vertice : getVertices().values()) {
+        TVertice verticeCentro= null;
+        for (TVertice vertice :getVertices().values()) {
             Double excentricidadMaxima= (Double) obtenerExcentricidad(vertice.getEtiqueta());
             if(excentricidadMaxima<excentricidadMinima){
                 excentricidadMinima=excentricidadMaxima;
                 verticeCentro=vertice;
             }
         }
-        if (verticeCentro != null) {
+        if (verticeCentro !=null) {
             return verticeCentro.getEtiqueta();
         }
         return null;
@@ -156,27 +156,27 @@ public class TGrafoDirigido implements IGrafoDirigido {
 
     @Override
     public Double[][] floyd() {
-        int n = vertices.size();
-        Object[] etiquetas = getEtiquetasOrdenado();
-        Double[][] distancias = new Double[n][n];
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (i == j) {
-                    distancias[i][j] = 0.0;
+        int n=vertices.size();
+        Object[] etiquetas=getEtiquetasOrdenado();
+        Double[][] distancias=new Double[n][n];
+        for (int i=0;i<n;i++) {
+            for (int j=0; j<n; j++) {
+                if (i== j) {
+                    distancias[i][j]= 0.0;
                 } else {
-                    TVertice vi = buscarVertice((Comparable) etiquetas[i]);
-                    TAdyacencia ady = vi.buscarAdyacencia((Comparable) etiquetas[j]);
-                    distancias[i][j] = (ady != null) ? ady.getCosto() : Double.MAX_VALUE;
+                    TVertice vi=buscarVertice((Comparable) etiquetas[i]);
+                    TAdyacencia ady=vi.buscarAdyacencia((Comparable) etiquetas[j]);
+                    distancias[i][j]=(ady != null) ? ady.getCosto(): Double.MAX_VALUE;
                 }
             }
         }
-        for (int k = 0; k < n; k++) {
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    if (distancias[i][k] != Double.MAX_VALUE && distancias[k][j] != Double.MAX_VALUE) {
-                        double nuevo = distancias[i][k] + distancias[k][j];
-                        if (nuevo < distancias[i][j]) {
-                            distancias[i][j] = nuevo;
+        for (int k=0; k< n;k++) {
+            for (int i=0;i< n;i++) {
+                for (int j=0;j< n; j++) {
+                    if (distancias[i][k] !=Double.MAX_VALUE && distancias[k][j] != Double.MAX_VALUE) {
+                        double nuevo=distancias[i][k] + distancias[k][j];
+                        if (nuevo< distancias[i][j]) {
+                            distancias[i][j]=nuevo;
                         }
                     }
                 }
@@ -188,31 +188,31 @@ public class TGrafoDirigido implements IGrafoDirigido {
 
     @Override
     public Comparable obtenerExcentricidad(Comparable etiquetaVertice) {
-        Map<Comparable, Double> distancias = new HashMap<>();
-        Queue<TVertice> cola = new LinkedList<>();
+        Map<Comparable, Double> distancias=new HashMap<>();
+        Queue<TVertice> cola=new LinkedList<>();
 
-        for (TVertice v : vertices.values()) {
-            distancias.put(v.getEtiqueta(), Double.MAX_VALUE);
+        for (TVertice v:vertices.values()) {
+            distancias.put(v.getEtiqueta(),Double.MAX_VALUE);
             v.setVisitado(false);
         }
 
         TVertice origen = buscarVertice(etiquetaVertice);
-        if (origen == null) return Double.MAX_VALUE;
+        if (origen== null) return Double.MAX_VALUE;
 
         distancias.put(origen.getEtiqueta(), 0.0);
         origen.setVisitado(true);
         cola.add(origen);
 
         while (!cola.isEmpty()) {
-            TVertice actual = cola.poll();
-            double distanciaActual = distancias.get(actual.getEtiqueta());
+            TVertice actual=cola.poll();
+            double distanciaActual=distancias.get(actual.getEtiqueta());
 
-            for (Object o : actual.getAdyacentes()) {
+            for (Object o:actual.getAdyacentes()) {
                 TAdyacencia ady=(TAdyacencia)o;
                 TVertice destino=ady.getDestino();
-                double nuevoCosto = distanciaActual + ady.getCosto();
+                double nuevoCosto=distanciaActual + ady.getCosto();
 
-                if (nuevoCosto < distancias.get(destino.getEtiqueta())) {
+                if (nuevoCosto<distancias.get(destino.getEtiqueta())) {
                     distancias.put(destino.getEtiqueta(), nuevoCosto);
                     if (!destino.getVisitado()) {
                         destino.setVisitado(true);
@@ -222,10 +222,10 @@ public class TGrafoDirigido implements IGrafoDirigido {
             }
         }
 
-        double excentricidad = 0.0;
-        for (double distancia : distancias.values()) {
-            if (distancia != Double.MAX_VALUE && distancia > excentricidad) {
-                excentricidad = distancia;
+        double excentricidad= 0.0;
+        for (double distancia: distancias.values()) {
+            if (distancia !=Double.MAX_VALUE && distancia >excentricidad) {
+                excentricidad= distancia;
             }
         }
 
@@ -233,25 +233,25 @@ public class TGrafoDirigido implements IGrafoDirigido {
     }
     @Override
     public boolean[][] warshall() {
-        int n = vertices.size();
-        Object[] etiquetas = getEtiquetasOrdenado();
-        boolean[][] accesibilidad = new boolean[n][n];
+        int n=vertices.size();
+        Object[] etiquetas= getEtiquetasOrdenado();
+        boolean[][] accesibilidad= new boolean[n][n];
 
-        for (int i = 0; i < n; i++) {
-            TVertice vi = buscarVertice(etiquetas[i].toString());
-            for (int j = 0; j < n; j++) {
-                if (i == j) {
-                    accesibilidad[i][j] = true;
+        for (int i=0; i<n; i++) {
+            TVertice vi= buscarVertice(etiquetas[i].toString());
+            for (int j=0; j<n; j++) {
+                if (i==j) {
+                    accesibilidad[i][j]= true;
                 } else {
-                    TAdyacencia ady = vi.buscarAdyacencia((Comparable) etiquetas[j]);
-                    accesibilidad[i][j] = (ady != null);
+                    TAdyacencia ady= vi.buscarAdyacencia((Comparable) etiquetas[j]);
+                    accesibilidad[i][j]= (ady != null);
                 }
             }
         }
-        for (int k = 0; k < n; k++) {
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < n; j++) {
-                    accesibilidad[i][j] = accesibilidad[i][j] || (accesibilidad[i][k] && accesibilidad[k][j]);
+        for (int k= 0; k < n; k++) {
+            for (int i= 0; i < n; i++) {
+                for (int j= 0; j < n; j++) {
+                    accesibilidad[i][j]= accesibilidad[i][j] || (accesibilidad[i][k] && accesibilidad[k][j]);
                 }
             }
         }
@@ -261,8 +261,8 @@ public class TGrafoDirigido implements IGrafoDirigido {
 
     @Override
     public boolean eliminarVertice(Comparable nombreVertice) {
-        TVertice vertice = buscarVertice(nombreVertice);
-        if (vertice == null) {
+        TVertice vertice= buscarVertice(nombreVertice);
+        if (vertice== null) {
             return false;
         }
         else {

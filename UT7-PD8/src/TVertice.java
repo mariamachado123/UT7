@@ -11,16 +11,16 @@ public class TVertice {
     private static int tiempoGlobal=0;
 
     public TVertice(String etiqueta) {
-        this.etiqueta = etiqueta;
-        this.adyacentes = new ArrayList<>();
+        this.etiqueta=etiqueta;
+        this.adyacentes=new ArrayList<>();
     }
     public void agregarAdyacente(TVertice destino){
         adyacentes.add(destino);
     }
     public void dfs(Map<String,TVertice> vertices){
-        visitado = true;
-        tiempoDescubrimiento =++tiempoGlobal;
-        for (TVertice ady: adyacentes) {
+        visitado=true;
+        tiempoDescubrimiento=++tiempoGlobal;
+        for (TVertice ady:adyacentes) {
             if (!ady.visitado) {
                 ady.dfs(vertices);
             }
@@ -31,7 +31,7 @@ public class TVertice {
         for (TVertice destino: adyacentes) {
             String clave=this.etiqueta + "-->" + destino.etiqueta;
             if (destino.tiempoDescubrimiento > this.tiempoDescubrimiento && destino.tiempoFinalizacion<this.tiempoDescubrimiento) {
-                if (Math.abs(destino.tiempoDescubrimiento - this.tiempoDescubrimiento) == 1) {
+                if (Math.abs(destino.tiempoDescubrimiento - this.tiempoDescubrimiento)==1) {
                     arcosArbol.put(clave, new TArista(this.etiqueta, destino.etiqueta));
                 } else {
                     arcosAvance.put(clave, new TArista(this.etiqueta, destino.etiqueta));

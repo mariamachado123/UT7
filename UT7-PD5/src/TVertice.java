@@ -81,8 +81,8 @@ public class TVertice<T>  {
     }
 
     public TAdyacencia buscarAdyacencia(Comparable etiquetaDestino) {
-        for (TAdyacencia adyacencia : adyacentes) {
-            if (adyacencia.getDestino().getEtiqueta().compareTo(etiquetaDestino) == 0) {
+        for (TAdyacencia adyacencia:adyacentes) {
+            if (adyacencia.getDestino().getEtiqueta().compareTo(etiquetaDestino)==0) {
                 return adyacencia;
             }
         }

@@ -19,8 +19,8 @@ public class TAdyacencia{
     }
 
     public TAdyacencia(double costo, TVertice destino) {
-        this.etiqueta = destino.getEtiqueta();
-        this.costo = costo;
+        this.etiqueta=destino.getEtiqueta();
+        this.costo=costo;
         this.destino = destino;
     }
 }

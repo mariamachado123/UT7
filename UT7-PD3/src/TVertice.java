@@ -32,7 +32,7 @@ public class TVertice<T>  {
 
 
     public TAdyacencia buscarAdyacencia(TVertice verticeDestino) {
-        if (verticeDestino != null) {
+        if (verticeDestino!=null) {
             return buscarAdyacencia(verticeDestino.getEtiqueta());
         }
         return null;
@@ -40,24 +40,24 @@ public class TVertice<T>  {
 
 
     public Double obtenerCostoAdyacencia(TVertice verticeDestino) {
-        TAdyacencia ady = buscarAdyacencia(verticeDestino);
-        if (ady != null) {
+        TAdyacencia ady=buscarAdyacencia(verticeDestino);
+        if (ady!=null) {
             return ady.getCosto();
         }
         return Double.MAX_VALUE;
     }
 
     public boolean insertarAdyacencia(Double costo, TVertice verticeDestino) {
-        if (buscarAdyacencia(verticeDestino) == null) {
-            TAdyacencia ady = new TAdyacencia(costo, verticeDestino);
+        if (buscarAdyacencia(verticeDestino)==null) {
+            TAdyacencia ady=new TAdyacencia(costo, verticeDestino);
             return adyacentes.add(ady);
         }
         return false;
     }
 
     public boolean eliminarAdyacencia(Comparable nomVerticeDestino) {
-        TAdyacencia ady = buscarAdyacencia(nomVerticeDestino);
-        if (ady != null) {
+        TAdyacencia ady=buscarAdyacencia(nomVerticeDestino);
+        if (ady!=null) {
             adyacentes.remove(ady);
             return true;
         }
@@ -65,24 +65,24 @@ public class TVertice<T>  {
     }
 
     public TVertice primerAdyacente() {
-        if (this.adyacentes.getFirst() != null) {
+        if (this.adyacentes.getFirst()!=null) {
             return this.adyacentes.getFirst().getDestino();
         }
         return null;
     }
 
     public TVertice siguienteAdyacente(TVertice w) {
-        TAdyacencia adyacente = buscarAdyacencia(w.getEtiqueta());
-        int index = adyacentes.indexOf(adyacente);
-        if (index + 1 < adyacentes.size()) {
+        TAdyacencia adyacente=buscarAdyacencia(w.getEtiqueta());
+        int index=adyacentes.indexOf(adyacente);
+        if (index + 1<adyacentes.size()) {
             return adyacentes.get(index + 1).getDestino();
         }
         return null;
     }
 
     public TAdyacencia buscarAdyacencia(Comparable etiquetaDestino) {
-        for (TAdyacencia adyacencia : adyacentes) {
-            if (adyacencia.getDestino().getEtiqueta().compareTo(etiquetaDestino) == 0) {
+        for (TAdyacencia adyacencia:adyacentes) {
+            if (adyacencia.getDestino().getEtiqueta().compareTo(etiquetaDestino)==0) {
                 return adyacencia;
             }
         }

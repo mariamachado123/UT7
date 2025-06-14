@@ -8,8 +8,8 @@ import static EJ_14_25.TransferenciaFiable.caminoMasFiable;
 public class Main {
     public static void main(String[] args) {
         int n = 5; // numero de compus
-        List<List<TransferenciaFiable.Arista>> grafo = new ArrayList<>();
-        for (int i = 0; i < n; i++) grafo.add(new ArrayList<>());
+        List<List<TransferenciaFiable.Arista>>grafo= new ArrayList<>();
+        for (int i=0;i<n;i++) grafo.add(new ArrayList<>());
         grafo.get(0).add(new TransferenciaFiable.Arista(1, 0.9));
         grafo.get(0).add(new TransferenciaFiable.Arista(2, 0.5));
         grafo.get(1).add(new TransferenciaFiable.Arista(2, 0.7));
