@@ -49,7 +49,17 @@ public class TGrafoDirigido implements IGrafoDirigido {
   
     @Override
     public boolean eliminarVertice(Comparable nombreVertice) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        IVertice vertice= buscarVertice(nombreVertice);
+        if (vertice== null) {
+            return false;
+        }
+        else {
+            for(IVertice v:vertices.values()){
+                v.eliminarAdyacencia(nombreVertice);
+            }
+        }
+        vertices.remove(nombreVertice);
+        return true;
     }
 
 
@@ -303,8 +313,8 @@ public class TGrafoDirigido implements IGrafoDirigido {
    
     @Override
     public Collection<TVertice> bpf(Comparable etiquetaOrigen) {
-        Collection<TVertice> resultado = new ArrayList<>();
-        Set<Comparable> visitados= new HashSet<>();
+        Collection<TVertice> resultado=new ArrayList<>();
+        Set<Comparable> visitados=new HashSet<>();
         bpfRecursivo(etiquetaOrigen, visitados);
         for (Comparable v: visitados) {
             resultado.add(buscarVertice(v));
@@ -314,11 +324,11 @@ public class TGrafoDirigido implements IGrafoDirigido {
 
     private void bpfRecursivo(Comparable actual, Set<Comparable> visitados) {
         visitados.add(actual);
-        IVertice verticeActual = vertices.get(actual);
-        if (verticeActual!= null) {
+        TVertice verticeActual=vertices.get(actual);
+        if (verticeActual!=null) {
             for (Object o: verticeActual.getAdyacentes()) {
-                TAdyacencia adyacente = (TAdyacencia) o;
-                Comparable destino= adyacente.getDestino().getEtiqueta();
+                TAdyacencia adyacente=(TAdyacencia) o;
+                Comparable destino=adyacente.getDestino().getEtiqueta();
                 if (!visitados.contains(destino)) {
                     bpfRecursivo(destino, visitados);
                 }

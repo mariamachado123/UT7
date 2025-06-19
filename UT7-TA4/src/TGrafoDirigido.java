@@ -48,8 +48,18 @@ public class TGrafoDirigido implements IGrafoDirigido {
      */
     @Override
     public boolean eliminarVertice(Comparable nombreVertice) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        IVertice vertice= buscarVertice(nombreVertice);
+        if (vertice== null) {
+            return false;
+        }
+        else {
+            for(IVertice v:vertices.values()){
+                v.eliminarAdyacencia(nombreVertice);
+            }
+        }
+        vertices.remove(nombreVertice);
+        return true;
+        }
 
     /**
      * Metodo encargado de verificar la existencia de una arista. Las
