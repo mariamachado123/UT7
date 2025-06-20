@@ -4,21 +4,22 @@ import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args) {
-        TGrafoDirigido grafo = new TGrafoDirigido();
-        Tarea tarea=new Tarea("Programar");
-        Tarea tarea1=new Tarea("Diseñar");
-        Tarea tarea2=new Tarea("Tester");
-        Tarea tarea3=new Tarea("Documentar");
-        grafo.insertarVertice(new TVertice<>(tarea.getNombre(),tarea));
-        grafo.insertarVertice(new TVertice<>(tarea1.getNombre(),tarea1));
-        grafo.insertarVertice(new TVertice<>(tarea2.getNombre(),tarea2));
-        grafo.insertarVertice(new TVertice<>(tarea3.getNombre(),tarea3));
-        grafo.insertarArista(new TArista("Diseñar","Programar",0.0));
-        grafo.insertarArista(new TArista("Tester","Programar",0.0));
-
-        LinkedList<Tarea> orden=grafo.ordenParcial();
-        grafo.listarTareas(orden);
-
+        TGrafoDirigido gd=(TGrafoDirigido) UtilGrafos.cargarGrafo("UT7-TA6/src/EJ3/tareas.txt","UT7-TA6/src/EJ3/precedencias.txt" ,false,TGrafoDirigido.class);
+        String[] lineasTareas=ManejadorArchivosGenerico.leerArchivo("UT7-TA6/src/EJ3/tareas.txt", false);
+        for(String linea:lineasTareas){
+            String[] datos=linea.split(",");
+            if(datos.length>=2){
+                String nombre=datos[0].trim();
+                int duracion= Integer.parseInt(datos[1].trim());
+                Tarea tarea=new Tarea(nombre,duracion);
+                TVertice vertice=gd.buscarVertice(nombre);
+                if (vertice!=null){
+                    vertice.setDatos(tarea);
+                }
+            }
+        }
+        LinkedList<Tarea> resultado=gd.ordenParcial();
+        gd.listarTareas(resultado);
     }
 
 }

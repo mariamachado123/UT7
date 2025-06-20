@@ -69,6 +69,9 @@ public class TVertice<T> {
     public T getDatos() {
         return datos;
     }
+    public void setDatos(T datos) {
+        this.datos=datos;
+    }
 
 
     public void ordenTopologico(LinkedList<Tarea> lista){
@@ -80,6 +83,21 @@ public class TVertice<T> {
             }
         }
         lista.addFirst((Tarea)this.getDatos());
+    }
+    public Double obtenerCostoAdyacencia(TVertice verticeDestino) {
+        TAdyacencia ady = buscarAdyacencia(verticeDestino);
+        if (ady != null) {
+            return ady.getCosto();
+        }
+        return Double.MAX_VALUE;
+    }
+    public boolean eliminarAdyacencia(Comparable nomVerticeDestino) {
+        TAdyacencia ady = buscarAdyacencia(nomVerticeDestino);
+        if (ady != null) {
+            adyacentes.remove(ady);
+            return true;
+        }
+        return false;
     }
 }
 

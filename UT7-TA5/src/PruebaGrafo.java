@@ -17,7 +17,7 @@ public class PruebaGrafo {
         }
         
         
-        TCaminos caminos = gd.todosLosCaminos("Santos", "Curitiba");
+        TCaminos caminos = gd.todosLosCaminos("Santos", "Asuncion");
         caminos.imprimirCaminosConsola();
 
     }

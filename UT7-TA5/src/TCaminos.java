@@ -19,7 +19,7 @@ public class TCaminos {
     }
     
     public String imprimirCaminos(){
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb=new StringBuilder();
         for (TCamino camino : caminos){
             sb.append(camino.imprimirEtiquetas()+"\n");
         }

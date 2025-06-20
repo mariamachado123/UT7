@@ -369,35 +369,37 @@ public class TGrafoDirigido implements IGrafoDirigido {
         List<TCamino> caminosEncontrados=new ArrayList<>();
         List<TAdyacencia> caminoActual=new ArrayList<>();
         Set<Comparable> visitados=new HashSet<>();
-        backtrackingCaminosConCostos(etiquetaOrigen,etiquetaDestino,visitados,caminoActual, caminosEncontrados);
+        backtrackingCaminosConCostos(etiquetaOrigen,etiquetaDestino,visitados,caminoActual, caminosEncontrados,etiquetaOrigen);
         TCaminos resultado=new TCaminos();
         resultado.getCaminos().addAll(caminosEncontrados);
 
         return resultado;
     }
 
-    private void backtrackingCaminosConCostos(Comparable actual, Comparable destino, Set<Comparable> visitados, List<TAdyacencia> caminoActual, List<TCamino> caminos) {
+    private void backtrackingCaminosConCostos(Comparable actual, Comparable destino, Set<Comparable> visitados, List<TAdyacencia> caminoActual, List<TCamino> caminos, Comparable origenInicial) {
 
         visitados.add(actual);
         if (actual.equals(destino)) {
-            TCamino nuevoCamino = new TCamino((TVertice) buscarVertice(actual));
+            TVertice origen=(TVertice) buscarVertice(origenInicial);
+            TCamino nuevoCamino = new TCamino(origen);
             for (TAdyacencia ady : caminoActual) {
                 nuevoCamino.agregarAdyacencia(ady);
             }
             caminos.add(nuevoCamino);
         } else {
-            IVertice verticeActual = vertices.get(actual);
+            TVertice verticeActual = vertices.get(actual);
             if (verticeActual != null) {
                 for (Object o : verticeActual.getAdyacentes()) {
                     TAdyacencia adyacente = (TAdyacencia) o;
                     Comparable siguiente = adyacente.getDestino().getEtiqueta();
                     if (!visitados.contains(siguiente)) {
                         caminoActual.add(adyacente);
-                        backtrackingCaminosConCostos(siguiente, destino, visitados, caminoActual, caminos);
+                        backtrackingCaminosConCostos(siguiente, destino, visitados, caminoActual, caminos,origenInicial);
                         caminoActual.remove(caminoActual.size() - 1);
                     }
                 }
             }
+            visitados.remove(actual);
         }
     }
     public Double obtenerCostoMinimo(String origen, String destino) {

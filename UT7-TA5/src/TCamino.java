@@ -61,7 +61,12 @@ public class TCamino implements ICamino {
     }
 
     public Double getCostoTotal() {
-        return costoTotal;
+        double total=0.0;
+        for (Object ady:this.getOrigen().getAdyacentes()){
+            TAdyacencia adyacencia=(TAdyacencia)ady;
+            total+= adyacencia.getCosto();
+        }
+        return total;
     }
 
     public void setCostoTotal(Double costoTotal) {
